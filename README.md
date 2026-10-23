@@ -11,6 +11,9 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 * **Universal CPU Support:** Automatically detects your CPU's maximum frequency for accurate pseudo-frequency scaling.
 * **Firmware Workarounds:** Implements clever hacks to bypass the firmware's limitations for precise CPU frequency and VRAM reporting (see below).
 
+![GeekMagic Monitor in Action](example_monitor.jpg)
+*Example of the monitor running with a custom layout, displaying GPU data.*
+
 ## 🚀 Installation & Usage
 
 1. Install the required dependencies:
