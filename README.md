@@ -8,6 +8,7 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 * **Zero Flash Wear:** Data is streamed (via SSE) directly into the device's RAM. We do not write images to the flash memory, significantly extending the device's lifespan.
 * **System Tray App:** The application runs silently in the system tray. Use the right-click context menu to manage it (Start / Stop / Exit).
 * **NVIDIA GPU Support:** Streams GPU load, temperature, power consumption, and VRAM usage.
+* **Universal CPU Support:** Automatically detects your CPU's maximum frequency for accurate pseudo-frequency scaling.
 * **Firmware Workarounds:** Implements clever hacks to bypass the firmware's limitations for precise CPU frequency and VRAM reporting (see below).
 
 ## 🚀 Installation & Usage
@@ -19,16 +20,17 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
    python GM_monitor.py
 *(The default port is `9998`. To use a custom port, run `python GM_monitor.py 8080`)*
 
-3. In the device's web interface (Monitor app), enter the IP address of the PC running the script and the port (`9998`). The device and the PC must be on the same local network.
+3. In the device's web interface (Monitor app), enter the IP address of your PC (e.g., `192.168.1.100`) and the port you configured (`9998`). The device and the PC must be on the same local network.
 
 ## 🛠 GeekMagic Protocol Details (API)
 
 The device does not use standard SSE. Its parser is extremely strict. Through reverse engineering (using Wireshark), we discovered the following rules:
 
 ### 1. HTTP Request from the Device
+The device sends this request to your PC's IP address and the configured port:
 GET /sse HTTP/1.1
 Content-Type:application/json;charset=utf-8
-Host: 192.168.1.152:9998
+Host: 192.168.1.100:9998
 User-Agent:Smalltv-Pro
 Connection: close
 
@@ -58,7 +60,7 @@ data: Page0|{|}Simple1|F_CPU: 1500 MHz{|}Simple2|UP_CPU: 45%{|}...{|}Simple16|UP
 
 | ID | On-Screen Label | Actual Data Sent | Logic / Hack |
 | :--- | :--- | :--- | :--- |
-| Simple1 | F_CPU: | **Pseudo-Frequency (MHz)** | `psutil` often reports the base clock. We take the real CPU load (%) and scale it from 800 to 2592 MHz. |
+| Simple1 | F_CPU: | **Pseudo-Frequency (MHz)** | Windows often reports the base clock for `psutil`. We detect the CPU's max frequency and scale it based on the real CPU load (%). |
 | Simple2 | UP_CPU: | GPU Load (%) | Mapped to GPU data. |
 | Simple3 | S_FAN: | 0 RPM | Stub (not used). |
 | Simple4 | UP_RAM: | RAM Usage (%) | Real data. |
