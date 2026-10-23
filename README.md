@@ -10,6 +10,8 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 * **NVIDIA GPU Support:** Streams GPU load, temperature, power consumption, and VRAM usage.
 * **Universal CPU Support:** Automatically detects your CPU's maximum frequency for accurate pseudo-frequency scaling.
 * **Firmware Workarounds:** Implements clever hacks to bypass the firmware's limitations for precise CPU frequency and VRAM reporting (see below).
+* **NVIDIA GPU Support:** Streams GPU load, temperature, power consumption, and VRAM usage.
+(Note: AMD support is currently on hold. Why? Because 2026 marks exactly 41 years since ATI was founded in 1985. If this repository gets 41 stars, I’ll take it as a sign from the hardware gods and add AMD support to celebrate the legacy!)
 
 ![GeekMagic Monitor in Action](example_monitor.jpg)
 *Example of the monitor running with a custom layout, displaying GPU data.*
@@ -101,6 +103,8 @@ pyinstaller --noconsole --onefile --icon=icon.ico --add-data "icon.ico;." GM_mon
 ```
 
 *(The `icon.ico` file must be in the same folder as the script. The compiled `.exe` will appear in the `dist` folder).*
+
+Tested on GeekMagic SmallTV Pro. Works with any NVIDIA GPU.
 
 ## 📝 License
 MIT License. Do whatever you want, just don't break your devices.
