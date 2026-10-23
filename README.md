@@ -17,10 +17,11 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 ## 🚀 Installation & Usage
 
 1. Install the required dependencies:
-   pip install psutil nvidia-ml-py pystray Pillow
+   ```pip install psutil nvidia-ml-py pystray Pillow
+   ```
 
 2. Run the script:
-   python GM_monitor.py
+   ```python GM_monitor.py```
 *(The default port is `9998`. To use a custom port, run `python GM_monitor.py 8080`)*
 
 3. In the device's web interface (Monitor app), enter the IP address of your PC (e.g., `192.168.1.100`) and the port you configured (`9998`). The device and the PC must be on the same local network.
@@ -30,7 +31,9 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 The device does not use standard SSE. Its parser is extremely strict. Through reverse engineering (using Wireshark), we discovered the following rules:
 
 ### 1. HTTP Request from the Device
+
 The device sends this request to your PC's IP address and the configured port:
+
 GET /sse HTTP/1.1
 Content-Type:application/json;charset=utf-8
 Host: 192.168.1.100:9998
@@ -85,8 +88,9 @@ data: Page0|{|}Simple1|F_CPU: 1500 MHz{|}Simple2|UP_CPU: 45%{|}...{|}Simple16|UP
 
 To create a standalone executable, use PyInstaller:
 
-pip install pyinstaller
+```pip install pyinstaller
 pyinstaller --noconsole --onefile --icon=icon.ico --add-data "icon.ico;." GM_monitor.py
+```
 
 *(The `icon.ico` file must be in the same folder as the script. The compiled `.exe` will appear in the `dist` folder).*
 
