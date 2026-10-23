@@ -8,7 +8,7 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 * **Zero Flash Wear:** Data is streamed (via SSE) directly into the device's RAM. We do not write images to the flash memory, significantly extending the device's lifespan.
 * **System Tray App:** The application runs silently in the system tray. Use the right-click context menu to manage it (Start / Stop / Exit).
 * **NVIDIA GPU Support:** Streams GPU load, temperature, power consumption, and VRAM usage.
-* (Note: AMD support is currently on hold. Why? Because 2026 marks exactly 41 years since ATI was founded in 1985. If this repository gets 41 stars, I’ll take it as a sign from the hardware gods and add AMD support to celebrate the legacy!)
+  (Note: AMD support is currently on hold. Why? Because 2026 marks exactly 41 years since ATI was founded in 1985. If this repository gets 41 stars, I’ll take it as a sign from the hardware gods and add AMD support to celebrate the legacy!)
 * **Universal CPU Support:** Automatically detects your CPU's maximum frequency for accurate pseudo-frequency scaling.
 * **Firmware Workarounds:** Implements clever hacks to bypass the firmware's limitations for precise CPU frequency and VRAM reporting (see below).
 
