@@ -17,14 +17,17 @@ It serves as a fully functional replacement for AIDA64. It consumes minimal reso
 ## 🚀 Installation & Usage
 
 1. Install the required dependencies:
-   ```pip install psutil nvidia-ml-py pystray Pillow
+   ```
+   pip install psutil nvidia-ml-py pystray Pillow
    ```
 
-2. Run the script:
-   ```python GM_monitor.py```
+3. Run the script:
+   ```
+   python GM_monitor.py
+   ```
 *(The default port is `9998`. To use a custom port, run `python GM_monitor.py 8080`)*
 
-3. In the device's web interface (Monitor app), enter the IP address of your PC (e.g., `192.168.1.100`) and the port you configured (`9998`). The device and the PC must be on the same local network.
+5. In the device's web interface (Monitor app), enter the IP address of your PC (e.g., `192.168.1.100`) and the port you configured (`9998`). The device and the PC must be on the same local network.
 
 ## 🛠 GeekMagic Protocol Details (API)
 
@@ -34,16 +37,19 @@ The device does not use standard SSE. Its parser is extremely strict. Through re
 
 The device sends this request to your PC's IP address and the configured port:
 
+```
 GET /sse HTTP/1.1
 Content-Type:application/json;charset=utf-8
 Host: 192.168.1.100:9998
 User-Agent:Smalltv-Pro
 Connection: close
+```
 
 ### 2. Server Response (CRITICAL)
 Standard Python `http.server` does not work here because it adds unnecessary headers (`Server`, `Date`) and fragments the data. The device only accepts **a single TCP packet** containing both the headers and the payload.
 
 **Correct Headers** (note the use of `\n` instead of the standard `\r\n`):
+```
 HTTP/1.1 200 OK\n
 Content-Type: text/event-stream\n
 Cache-Control: no-cache\n
@@ -51,6 +57,7 @@ Access-Control-Allow-Origin: *\n
 Access-Control-Expose-Headers: *\n
 Access-Control-Allow-Credentials: true\n
 \n
+```
 
 ### 3. Payload Format
 Data is transmitted as a single line, separated by `{|}`. The packet must end with two newlines `\n\n`.
@@ -88,7 +95,8 @@ data: Page0|{|}Simple1|F_CPU: 1500 MHz{|}Simple2|UP_CPU: 45%{|}...{|}Simple16|UP
 
 To create a standalone executable, use PyInstaller:
 
-```pip install pyinstaller
+```
+pip install pyinstaller
 pyinstaller --noconsole --onefile --icon=icon.ico --add-data "icon.ico;." GM_monitor.py
 ```
 
